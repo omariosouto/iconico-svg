@@ -16,6 +16,9 @@ var configSvg = {
     }
 };
 
+gulp.task('run-test', function(){
+	console.log('Running!');
+});
 gulp.task('sprites', function(){
     return gulp.src('icons/**/*.svg')
         .pipe(svg_sprite(configSvg))
@@ -23,7 +26,9 @@ gulp.task('sprites', function(){
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./icons/**/*.*', ['sprites']);
+    gulp.watch('icons/**/*.*', ['sprites', 'run-test']).on('change', function(event) {
+	  console.log('File ' + event.path + ' was ' + event.type);
+	});
 	
 });
 
