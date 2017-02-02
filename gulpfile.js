@@ -1,8 +1,11 @@
-var gulp       = require('gulp');
-var svg_sprite     = require('gulp-svg-sprite');
+const gulp           = require('gulp');
+const watch          = require('gulp-watch');
+const svg_sprite     = require('gulp-svg-sprite');
+const color          = require('gulp-color');
 
 // - Sprites Generator
-var configSvg = {
+// - Icons
+const configSvg = {
     mode: {
         symbol: {
             dest: 'sprite',
@@ -16,20 +19,13 @@ var configSvg = {
     }
 };
 
-gulp.task('run-test', function(){
-	console.log('Running!');
-});
 gulp.task('sprites', function(){
-    return gulp.src('icons/**/*.svg')
-        .pipe(svg_sprite(configSvg))
-        .pipe(gulp.dest('.'))
+    return watch('./icons/svg/**/*.svg', { ignoreInitial: false }, function () {
+      gulp.src('./icons/svg/**/*.svg')
+      .pipe(svg_sprite(configSvg))
+      .pipe(gulp.dest('./icons'))
+      console.log(color('[SVG-ICON _sprite generated]', 'GREEN'));
+    });
 });
 
-gulp.task('watch', function () {
-    gulp.watch('icons/**/*.*', ['sprites', 'run-test']).on('change', function(event) {
-	  console.log('File ' + event.path + ' was ' + event.type);
-	});
-	
-});
-
-gulp.task('default', ['sprites', 'watch']);
+gulp.task('default', ['sprites']);
