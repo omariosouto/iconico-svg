@@ -8,4 +8,4 @@ After install everything, you need to start gulp
 
 > gulp
 
-and then you just need to leave an SVG file into the `/icons/svg/` folder
+and then you just need to drop an SVG file into the `/icons/svg/` folder
